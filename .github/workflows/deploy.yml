@@ -10,21 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Clean install dependencies (fix bug)
+      - name: Set npm config
+        run: npm config set optional true
+
+      - name: Install dependencies (fix bug)
         run: |
           rm -rf node_modules package-lock.json
           npm cache clean --force
-          npm install --force
+          npm install --include=optional --force
 
-      - name: Build Vite project
+      - name: Build
         run: npm run build
 
       - name: Deploy to S3
