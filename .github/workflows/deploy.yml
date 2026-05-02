@@ -17,19 +17,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # We skip the default cache here to ensure a fresh, 
-          # platform-correct install during troubleshooting.
-          
-      - name: Install Dependencies (Fix Native Bindings)
-        # We delete the lockfile to force npm to re-resolve dependencies 
-        # specifically for the Linux x64 environment of the runner.
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install --os=linux --cpu=x64
-<<<<<<< HEAD
-=======
 
->>>>>>> b0858b3c226d02a95e1eb1d45262acb5036b3301
+      - name: Install Dependencies (Stable Fix)
+        run: |
+          rm -rf node_modules
+          npm ci --include=optional
+
       - name: Build
         run: npm run build
 
