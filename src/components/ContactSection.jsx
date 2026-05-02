@@ -42,7 +42,7 @@ export const ContactSection = () => {
     };
 
     const response = await fetch(
-      "todo API endpoint to store message in DynamoDB",
+      "https://oiy3hu1i06.execute-api.ap-south-2.amazonaws.com/prod/contact",
       {
         method: "POST",
         headers: {
