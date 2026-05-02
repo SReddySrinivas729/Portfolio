@@ -10,17 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'npm'
 
-      - name: Install dependencies (fix bug)
-        run: |
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
-          npm install --include=optional --legacy-peer-deps
+      - name: Install Dependencies
+        # Using npm ci ensures a clean, consistent install from package-lock.json
+        # The platform flag helps resolve the Tailwind Oxide native binding error
+        run: npm ci --include=optional --platform=linux --arch=x64
 
       - name: Build
         run: npm run build
