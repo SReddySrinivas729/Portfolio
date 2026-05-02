@@ -3,25 +3,30 @@ name: Deploy Vite React App to AWS S3 + CloudFront
 on:
   push:
     branches:
-      - main   # runs when you push to main branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Vite project
+          node-version: 20
+          # We skip the default cache here to ensure a fresh, 
+          # platform-correct install during troubleshooting.
+          
+      - name: Install Dependencies (Fix Native Bindings)
+        # We delete the lockfile to force npm to re-resolve dependencies 
+        # specifically for the Linux x64 environment of the runner.
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --os=linux --cpu=x64
+      - name: Build
         run: npm run build
 
       - name: Deploy to S3
