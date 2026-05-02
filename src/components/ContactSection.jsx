@@ -21,18 +21,18 @@ export const ContactSection = () => {
 
   try {
     // ------------------- EMAILJS SEND -------------------
-    // Emailjs Credes Here
-    // await emailjs.sendForm(
-    //   "service",
-    //   "template",
-    //   e.target,
-    //   "randomuser"
-    // );
+    //Emailjs Credes Here
+    await emailjs.sendForm(
+      "service_qkchws4",
+      "template_fnskbwm",
+      e.target,
+      "kHmxelQF7ZQnf-o6D"
+    );
 
-    // toast({
-    //   title: "Message sent!",
-    //   description: "Thank you for your message. I'll get back to you soon.",
-    // });
+    toast({
+      title: "Message sent!",
+      description: "Thank you for your message. I'll get back to you soon.",
+    });
 
     // ------------------- STORE IN DYNAMODB VIA API -------------------
     const formData = {
