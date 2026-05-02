@@ -26,6 +26,10 @@ jobs:
         run: |
           rm -rf node_modules package-lock.json
           npm install --os=linux --cpu=x64
+<<<<<<< HEAD
+=======
+
+>>>>>>> b0858b3c226d02a95e1eb1d45262acb5036b3301
       - name: Build
         run: npm run build
 
