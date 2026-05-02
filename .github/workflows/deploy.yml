@@ -17,11 +17,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          
-      - name: Clean and Install dependencies
+
+      - name: Clean install dependencies (fix bug)
         run: |
           rm -rf node_modules package-lock.json
-          npm install --legacy-peer-deps
+          npm cache clean --force
+          npm install --force
 
       - name: Build Vite project
         run: npm run build
